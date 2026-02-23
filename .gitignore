@@ -1,0 +1,4 @@
+# VS Code workspace storage (large, machine-specific)
+vscode/.config/Code/User/globalStorage/
+vscode/.config/Code/User/workspaceStorage/
+vscode/.config/Code/User/History/

@@ -1,0 +1,7 @@
+{
+    "security.workspace.trust.untrustedFiles": "open",
+    "workbench.colorTheme": "Ayu Dark Bordered",
+    "remote.autoForwardPortsSource": "hybrid",
+    "claudeCode.preferredLocation": "panel",
+    "python.defaultInterpreterPath": "/bin/python3"
+}
