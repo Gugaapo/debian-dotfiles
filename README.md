@@ -20,7 +20,7 @@ sudo apt-get install -y stow   # Debian/Ubuntu
 # brew install stow             # macOS
 
 # 2. Clone this repo
-git clone <repo-url> ~/dotfiles
+git clone https://github.com/Gugaapo/debian-dotfiles.git ~/dotfiles
 
 # 3. Stow all packages
 cd ~/dotfiles
