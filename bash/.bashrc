@@ -186,6 +186,23 @@ past() {
     fi
 }
 
+# Save and push dotfiles changes with an AI-generated commit message
+dotfiles-save() {
+    for dir in "$HOME/dotfiles" "$HOME/dotfiles-private"; do
+        cd "$dir" || continue
+        if [[ -n $(git status --porcelain) ]]; then
+            git add .
+            msg=$(git diff --cached | claude -p "Write a concise one-line git commit message summarizing these dotfile changes. Use imperative mood. No quotes. No mention of AI or automated tools.")
+            git commit -m "$msg"
+            git push
+            echo "✓ $dir pushed: $msg"
+        else
+            echo "— $dir: nothing to commit"
+        fi
+        cd - > /dev/null
+    done
+}
+
 # fnm
 FNM_PATH="/home/gustavo/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
