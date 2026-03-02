@@ -186,45 +186,7 @@ past() {
     fi
 }
 
-# Save and push dotfiles changes with an AI-generated commit message.
-# dotfiles-private is the source of truth; non-credential packages are
-# synced to the public dotfiles repo before pushing.
-dotfiles-save() {
-    local private="$HOME/dotfiles-private"
-    local public="$HOME/dotfiles"
-    local public_packages=(bash git alacritty vscode ohmybash)
-
-    # Sync non-credential packages from private -> public
-    for pkg in "${public_packages[@]}"; do
-        rsync -a --delete "$private/$pkg/" "$public/$pkg/"
-    done
-
-    # Commit and push private repo first
-    cd "$private" || return
-    if [[ -n $(git status --porcelain) ]]; then
-        git add .
-        msg=$(git diff --cached | claude -p "Write a concise one-line git commit message summarizing these dotfile changes. Use imperative mood. No quotes. No mention of AI or automated tools.")
-        git commit -m "$msg"
-        git push
-        echo "✓ private pushed: $msg"
-    else
-        echo "— private: nothing to commit"
-    fi
-
-    # Commit and push public repo
-    cd "$public" || return
-    if [[ -n $(git status --porcelain) ]]; then
-        git add .
-        msg=$(git diff --cached | claude -p "Write a concise one-line git commit message summarizing these dotfile changes. Use imperative mood. No quotes. No mention of AI or automated tools.")
-        git commit -m "$msg"
-        git push
-        echo "✓ public pushed: $msg"
-    else
-        echo "— public: nothing to commit"
-    fi
-
-    cd - > /dev/null
-}
+alias dotfiles-save="$HOME/.local/bin/dotfiles-save"
 
 # fnm
 FNM_PATH="/home/gustavo/.local/share/fnm"
